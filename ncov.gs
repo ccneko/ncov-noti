@@ -11,14 +11,18 @@ function storeValue() {
 function emailNotify() {  
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var logsheet = ss.getSheetByName('log');
+  var lastheight = logsheet.getRange("H2").getValue();
   var height = logsheet.getLastRow();
+  var past = logsheet.getRange(lastheight, 3, 1, 4).clearFormat().getValues()[0];
   var update = logsheet.getRange(height, 3, 1, 4).clearFormat().getValues()[0];
   //var update = ss.getSheetByName('dummy').getRange("B2:E2").getValues()[0];
-  var past = logsheet.getRange(height-1, 3, 1, 4).clearFormat().getValues()[0];
+
     if ((update[0] != past[0]) && (update[1] != past[1]) && (update[2] != past[2]) && (update[3] != past[3])) {
-      var emailAddress = "your@email.com";
+      var emailAddress = "clairechung112@gmail.com";
       var message = "Last update: "+ update[0] + "; Confirmed: " + update[1] + "; Suspected: " + update[2] + "; Death: " + update[3];
       var subject = Date() + " 2019-nCoV latest case numbers in China";
       MailApp.sendEmail(emailAddress, subject, message);
   }
+  lastheight = height;
+  logsheet.getRange("H2").setValue(lastheight);
 }
