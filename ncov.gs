@@ -13,6 +13,7 @@ function emailNotify() {
   var logsheet = ss.getSheetByName('log');
   var height = logsheet.getLastRow();
   var update = logsheet.getRange(height, 3, 1, 4).clearFormat().getValues()[0];
+  //var update = ss.getSheetByName('dummy').getRange("B2:E2").getValues()[0];
   var past = logsheet.getRange(height-1, 3, 1, 4).clearFormat().getValues()[0];
     if ((update[0] != past[0]) && (update[1] != past[1]) && (update[2] != past[2]) && (update[3] != past[3])) {
       var emailAddress = "your@email.com";
